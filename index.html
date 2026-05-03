@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="알봄 — 우리 가족 영양제, 한 곳에서 똑똑하게. 복용 시간 알림, AI 영양제 추천, 가족 콕 찌르기 기능을 제공하는 가족 영양제 관리 앱.">
+<meta name="keywords" content="영양제, 영양제 관리, 가족 영양제, 복용 알림, AI 추천, 알봄, albom">
+
+<meta property="og:title" content="알봄 - 우리 가족 영양제 관리">
+<meta property="og:description" content="우리 가족 영양제, 한 곳에서 똑똑하게 챙기세요">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://albom.kr/og-image.png">
+<meta property="og:url" content="https://albom.kr">
+<meta property="og:locale" content="ko_KR">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="알봄 - 우리 가족 영양제 관리">
+<meta name="twitter:description" content="우리 가족 영양제, 한 곳에서 똑똑하게 챙기세요">
+
+<title>알봄 - 우리 가족 영양제, 한 곳에서 똑똑하게</title>
+
+<link rel="icon" type="image/png" href="app_icon.png">
+<link rel="apple-touch-icon" href="app_icon.png">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+
+<style>
+:root {
+  /* 알봄 브랜드 컬러 */
+  --color-primary: #0F766E;
+  --color-primary-dark: #134E4A;
+  --color-primary-darker: #0D4A46;
+  --color-bg: #F7F8FA;
+  --color-bg-light: #E0F7F4;
+  --color-card: #FFFFFF;
+  --color-progress-bg: #CCECE8;
+  --color-warning-bg: #FFF5E6;
+  --color-accent: #E8593C;
+  --color-accent-light: #FAECEA;
+  --color-text: #134E4A;
+  --color-label: #7AB09A;
+  --color-disabled: #9BB5AE;
+  --color-border: #CCE8E5;
+
+  --max-width: 1200px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  --shadow-sm: 0 2px 8px rgba(15, 118, 110, 0.06);
+  --shadow-md: 0 4px 24px rgba(15, 118, 110, 0.08);
+  --shadow-lg: 0 12px 48px rgba(15, 118, 110, 0.12);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ===== Navigation ===== */
+.nav {
+  position: sticky;
+  top: 0;
+  background: rgba(247, 248, 250, 0.85);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid rgba(204, 232, 229, 0.5);
+  z-index: 100;
+}
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-logo img {
+  height: 68px;
+  width: auto;
+  display: block;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.nav-link {
+  color: var(--color-text);
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: var(--color-primary);
+}
+
+.nav-cta {
+  background: var(--color-primary);
+  color: white;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.nav-cta:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
+/* ===== Hero Section ===== */
+.hero {
+  padding: 80px 0 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(224, 247, 244, 0.5) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-bg-light);
+  color: var(--color-primary);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.hero-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.hero h1 {
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--color-primary-dark);
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+  word-break: keep-all;
+}
+
+.hero h1 .accent {
+  color: var(--color-primary);
+}
+
+.hero-description {
+  font-size: 19px;
+  color: var(--color-label);
+  margin-bottom: 32px;
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-primary);
+  color: white;
+  padding: 14px 28px;
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  color: var(--color-primary);
+  padding: 14px 28px;
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+  font-weight: 600;
+  border: 1.5px solid var(--color-border);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--color-label);
+  margin-top: 2px;
+}
+
+/* Hero Mockup */
+.hero-mockup {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.phone-frame {
+  width: 280px;
+  height: 580px;
+  background: linear-gradient(145deg, var(--color-primary-dark), var(--color-primary));
+  border-radius: 40px;
+  padding: 12px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  transform: rotate(-2deg);
+  transition: transform 0.3s ease;
+}
+
+.phone-frame:hover {
+  transform: rotate(0deg);
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background: var(--color-bg);
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.phone-notch {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 22px;
+  background: #000;
+  border-radius: 11px;
+  z-index: 10;
+}
+
+.app-status-bar {
+  height: 44px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 24px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.app-header {
+  padding: 16px 20px;
+  background: var(--color-card);
+}
+
+.app-greeting {
+  font-size: 13px;
+  color: var(--color-label);
+  margin-bottom: 4px;
+}
+
+.app-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+.app-content {
+  flex: 1;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.app-card {
+  background: var(--color-card);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--color-bg-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.app-card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.app-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 2px;
+}
+
+.app-card-meta {
+  font-size: 11px;
+  color: var(--color-label);
+}
+
+.app-card-check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.app-card-check svg {
+  width: 12px;
+  height: 12px;
+  fill: white;
+}
+
+.app-card-pending {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+/* ===== Section Common ===== */
+.section {
+  padding: 80px 0;
+}
+
+.section-light {
+  background: var(--color-bg-light);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-tag {
+  display: inline-block;
+  background: var(--color-bg-light);
+  color: var(--color-primary);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--color-primary-dark);
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+  word-break: keep-all;
+}
+
+.section-subtitle {
+  font-size: 17px;
+  color: var(--color-label);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+/* ===== Features Grid ===== */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.feature-card {
+  background: var(--color-card);
+  border-radius: var(--radius-md);
+  padding: 32px;
+  border: 1px solid var(--color-border);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary);
+}
+
+.feature-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--color-bg-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+.feature-card.accent .feature-icon {
+  background: var(--color-accent-light);
+}
+
+.feature-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+
+.feature-description {
+  font-size: 15px;
+  color: var(--color-label);
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+/* ===== Differentiator Section ===== */
+.diff-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.diff-item {
+  text-align: center;
+  padding: 32px 20px;
+  background: white;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.diff-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  background: var(--color-primary);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.diff-icon svg {
+  width: 32px;
+  height: 32px;
+  fill: white;
+}
+
+.diff-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin-bottom: 8px;
+}
+
+.diff-description {
+  font-size: 14px;
+  color: var(--color-label);
+  line-height: 1.6;
+  word-break: keep-all;
+}
+
+/* ===== How It Works ===== */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+  position: relative;
+}
+
+.step {
+  text-align: center;
+  position: relative;
+}
+
+.step-number {
+  width: 48px;
+  height: 48px;
+  background: var(--color-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 auto 16px;
+}
+
+.step-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin-bottom: 8px;
+}
+
+.step-description {
+  font-size: 14px;
+  color: var(--color-label);
+  word-break: keep-all;
+  line-height: 1.6;
+}
+
+/* ===== CTA Section ===== */
+.cta {
+  padding: 100px 0;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.cta::after {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  left: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(232, 89, 60, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 1;
+}
+
+.cta h2 {
+  font-size: 44px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  word-break: keep-all;
+}
+
+.cta p {
+  font-size: 18px;
+  margin-bottom: 32px;
+  opacity: 0.9;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  color: var(--color-primary);
+  padding: 16px 32px;
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+  font-weight: 700;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+.btn-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 16px 32px;
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+  font-weight: 600;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.btn-cta-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ===== Footer ===== */
+.footer {
+  background: var(--color-primary-darker);
+  color: white;
+  padding: 60px 0 32px;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+
+.footer-brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.footer-brand-logo img {
+  height: 72px;
+  width: auto;
+  display: block;
+}
+
+.footer-description {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
+  margin-bottom: 16px;
+  word-break: keep-all;
+}
+
+.footer-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: white;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links a {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: white;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-copyright {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.footer-contact {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.footer-contact a {
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.2s;
+}
+
+.footer-contact a:hover {
+  color: white;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .hero h1 {
+    font-size: 44px;
+  }
+
+  .section-title {
+    font-size: 34px;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .diff-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    gap: 16px;
+  }
+
+  .nav-link:not(.nav-cta) {
+    display: none;
+  }
+
+  .hero {
+    padding: 48px 0 40px;
+  }
+
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    text-align: center;
+  }
+
+  .hero-mockup {
+    order: -1;
+  }
+
+  .phone-frame {
+    width: 240px;
+    height: 500px;
+    transform: rotate(0);
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .hero-description {
+    font-size: 16px;
+  }
+
+  .hero-cta {
+    justify-content: center;
+  }
+
+  .hero-stats {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .section {
+    padding: 60px 0;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
+
+  .section-subtitle {
+    font-size: 15px;
+  }
+
+  .feature-card {
+    padding: 24px;
+  }
+
+  .feature-title {
+    font-size: 20px;
+  }
+
+  .cta h2 {
+    font-size: 30px;
+  }
+
+  .cta p {
+    font-size: 16px;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .hero h1 {
+    font-size: 30px;
+  }
+
+  .section-title {
+    font-size: 24px;
+  }
+
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-stats {
+    gap: 16px;
+  }
+
+  .stat-value {
+    font-size: 20px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Navigation ===== -->
+<nav class="nav">
+  <div class="container nav-content">
+    <a href="#" class="nav-logo">
+      <img src="albom_logo_dark_transp.png" alt="알봄">
+    </a>
+    <div class="nav-links">
+      <a href="#features" class="nav-link">기능</a>
+      <a href="#how-it-works" class="nav-link">사용법</a>
+      <a href="faq.html" class="nav-link">FAQ</a>
+      <a href="#download" class="nav-link nav-cta">앱 다운로드</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== Hero Section ===== -->
+<section class="hero">
+  <div class="container hero-content">
+    <div>
+      <div class="hero-badge">곧 출시 예정</div>
+      <h1>우리 가족 영양제,<br><span class="accent">한 곳에서 똑똑하게</span></h1>
+      <p class="hero-description">
+        복용 시간 알림부터 AI 영양제 추천까지.<br>
+        가족이 함께 건강을 챙기는 가장 쉬운 방법.
+      </p>
+      <div class="hero-cta">
+        <a href="#download" class="btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" fill="currentColor"/>
+          </svg>
+          App Store에서 받기
+        </a>
+        <a href="#features" class="btn-secondary">
+          기능 살펴보기
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-value">4가지</span>
+          <span class="stat-label">핵심 기능</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">무료</span>
+          <span class="stat-label">전체 기능</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">한국어</span>
+          <span class="stat-label">완벽 지원</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-mockup">
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="app-status-bar">9:41</div>
+          <div class="app-header">
+            <div class="app-greeting">안녕하세요, 신승호님</div>
+            <div class="app-title">오늘의 영양제 💊</div>
+          </div>
+          <div class="app-content">
+            <div class="app-card">
+              <div class="app-card-icon">🌿</div>
+              <div class="app-card-content">
+                <div class="app-card-title">종합비타민</div>
+                <div class="app-card-meta">아침 식후 · 1정</div>
+              </div>
+              <div class="app-card-check">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              </div>
+            </div>
+            <div class="app-card">
+              <div class="app-card-icon">🐟</div>
+              <div class="app-card-content">
+                <div class="app-card-title">오메가-3</div>
+                <div class="app-card-meta">점심 식후 · 2캡슐</div>
+              </div>
+              <div class="app-card-check">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              </div>
+            </div>
+            <div class="app-card">
+              <div class="app-card-icon">☀️</div>
+              <div class="app-card-content">
+                <div class="app-card-title">비타민 D</div>
+                <div class="app-card-meta">저녁 식후 · 1정</div>
+              </div>
+              <div class="app-card-pending"></div>
+            </div>
+            <div class="app-card">
+              <div class="app-card-icon">🧬</div>
+              <div class="app-card-content">
+                <div class="app-card-title">유산균</div>
+                <div class="app-card-meta">취침 전 · 1포</div>
+              </div>
+              <div class="app-card-pending"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Features Section ===== -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">핵심 기능</span>
+      <h2 class="section-title">가족 건강을 위한 4가지 기능</h2>
+      <p class="section-subtitle">
+        영양제 관리부터 AI 추천까지. 알봄 하나면 충분합니다.
+      </p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">💊</div>
+        <h3 class="feature-title">가족 영양제 관리</h3>
+        <p class="feature-description">
+          여러 가족 구성원의 영양제를 한 곳에서 등록하고 관리하세요. 재고 부족 알림으로 떨어지기 전에 미리 챙길 수 있습니다.
+        </p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔔</div>
+        <h3 class="feature-title">정확한 복용 시간 알림</h3>
+        <p class="feature-description">
+          매일 정해진 시간에 알림을 받아 영양제를 잊지 않고 챙기세요. 식전, 식후, 취침 전 등 다양한 복용 맥락을 지원합니다.
+        </p>
+      </div>
+      <div class="feature-card accent">
+        <div class="feature-icon">🤖</div>
+        <h3 class="feature-title">AI 영양제 추천</h3>
+        <p class="feature-description">
+          나의 건강 상태와 생활 습관을 기반으로 맞춤형 영양제를 추천받으세요. Claude AI가 분석한 신뢰할 수 있는 정보를 제공합니다.
+        </p>
+      </div>
+      <div class="feature-card accent">
+        <div class="feature-icon">👨‍👩‍👧</div>
+        <h3 class="feature-title">가족 콕 찌르기</h3>
+        <p class="feature-description">
+          부모님이 영양제를 깜빡하셨다면 콕 찌르기 한 번으로 알려드리세요. 가족 모두 함께 건강을 챙길 수 있습니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Differentiator Section ===== -->
+<section class="section section-light">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">왜 알봄인가요?</span>
+      <h2 class="section-title">한국 가족을 위한 영양제 앱</h2>
+      <p class="section-subtitle">
+        대부분의 영양제 앱은 개인용입니다. 알봄은 가족 단위로 설계되었습니다.
+      </p>
+    </div>
+    <div class="diff-grid">
+      <div class="diff-item">
+        <div class="diff-icon">
+          <svg viewBox="0 0 24 24"><path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zM4 18v-4h-1l3-9.07c.3-.92 1.16-1.43 2.05-1.43h.95l3 9V14h-1v6c0 .55.45 1 1 1s1-.45 1-1v-7h2v7c0 .55.45 1 1 1s1-.45 1-1v-7h1v6h-2.05c-.5 1.71-2.07 3-3.95 3s-3.45-1.29-3.95-3H4zm5.5-1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5-1.5.67-1.5 1.5z"/></svg>
+        </div>
+        <h3 class="diff-title">가족 단위 관리</h3>
+        <p class="diff-description">
+          개인용이 아닌 가족 모두를 위한 앱. 부모님부터 자녀까지 한 곳에서.
+        </p>
+      </div>
+      <div class="diff-item">
+        <div class="diff-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        </div>
+        <h3 class="diff-title">AI 맞춤 추천</h3>
+        <p class="diff-description">
+          Anthropic Claude AI를 활용한 신뢰할 수 있는 영양제 추천 서비스.
+        </p>
+      </div>
+      <div class="diff-item">
+        <div class="diff-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+        </div>
+        <h3 class="diff-title">한국 최적화</h3>
+        <p class="diff-description">
+          한국 가족 문화와 라이프스타일에 맞춘 직관적인 인터페이스.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== How It Works ===== -->
+<section class="section" id="how-it-works">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">시작하기</span>
+      <h2 class="section-title">4단계로 시작하세요</h2>
+      <p class="section-subtitle">
+        복잡한 설정 없이 1분이면 우리 가족 영양제 관리를 시작할 수 있습니다.
+      </p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3 class="step-title">앱 다운로드</h3>
+        <p class="step-description">
+          App Store에서 알봄을 다운로드하고 카카오 또는 구글로 간편 가입하세요.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3 class="step-title">가족 그룹 만들기</h3>
+        <p class="step-description">
+          새 가족 그룹을 만들거나, 받은 초대 코드로 기존 가족에 참여하세요.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3 class="step-title">영양제 등록</h3>
+        <p class="step-description">
+          현재 복용 중인 영양제를 등록하고 알림 시간을 설정하세요.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <h3 class="step-title">건강 챙기기</h3>
+        <p class="step-description">
+          정해진 시간에 알림을 받고, 가족과 함께 건강한 습관을 만들어가세요.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA Section ===== -->
+<section class="cta" id="download">
+  <div class="container cta-content">
+    <h2>지금 우리 가족 건강을<br>알봄과 함께 챙겨보세요</h2>
+    <p>App Store에서 무료로 다운로드 받을 수 있습니다</p>
+    <div class="cta-buttons">
+      <button class="btn-cta-primary" onclick="alert('곧 출시 예정입니다!')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+        </svg>
+        App Store에서 받기
+      </button>
+      <a href="faq.html" class="btn-cta-secondary">
+        자주 묻는 질문
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div>
+        <div class="footer-brand-logo">
+          <img src="albom_logo_dark_transp.png" alt="알봄">
+        </div>
+        <p class="footer-description">
+          우리 가족 영양제, 한 곳에서 똑똑하게.<br>
+          가족이 함께 건강을 챙기는 가장 쉬운 방법.
+        </p>
+      </div>
+      <div>
+        <h4 class="footer-section-title">서비스</h4>
+        <ul class="footer-links">
+          <li><a href="#features">기능 소개</a></li>
+          <li><a href="#how-it-works">사용 방법</a></li>
+          <li><a href="faq.html">자주 묻는 질문</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-section-title">고객 지원</h4>
+        <ul class="footer-links">
+          <li><a href="https://forms.gle/GeDiZiPGGb2YuC187">문의하기</a></li>
+          <li><a href="mailto:shin25641@gmail.com">이메일 문의</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer-section-title">법적 고지</h4>
+        <ul class="footer-links">
+          <li><a href="privacy-policy.html">개인정보처리방침</a></li>
+          <li><a href="terms.html">이용약관</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copyright">
+        © 2026 알봄(Albom). All rights reserved.
+      </div>
+      <div class="footer-contact">
+        문의: <a href="mailto:shin25641@gmail.com">shin25641@gmail.com</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
