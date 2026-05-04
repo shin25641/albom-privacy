@@ -307,142 +307,18 @@ img {
   align-items: center;
 }
 
-.phone-frame {
-  width: 280px;
-  height: 580px;
-  background: linear-gradient(145deg, var(--color-primary-dark), var(--color-primary));
-  border-radius: 40px;
-  padding: 12px;
-  box-shadow: var(--shadow-lg);
-  position: relative;
+.hero-mockup img {
+  width: 170%;
+  max-width: 625px;
+  height: auto;
+  display: block;
   transform: rotate(-2deg);
   transition: transform 0.3s ease;
+  filter: drop-shadow(0 12px 48px rgba(15, 118, 110, 0.18));
 }
 
-.phone-frame:hover {
+.hero-mockup img:hover {
   transform: rotate(0deg);
-}
-
-.phone-screen {
-  width: 100%;
-  height: 100%;
-  background: var(--color-bg);
-  border-radius: 28px;
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.phone-notch {
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 22px;
-  background: #000;
-  border-radius: 11px;
-  z-index: 10;
-}
-
-.app-status-bar {
-  height: 44px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 0 24px;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--color-text);
-}
-
-.app-header {
-  padding: 16px 20px;
-  background: var(--color-card);
-}
-
-.app-greeting {
-  font-size: 13px;
-  color: var(--color-label);
-  margin-bottom: 4px;
-}
-
-.app-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--color-primary-dark);
-}
-
-.app-content {
-  flex: 1;
-  padding: 16px;
-  overflow: hidden;
-}
-
-.app-card {
-  background: var(--color-card);
-  border-radius: 12px;
-  padding: 12px 14px;
-  margin-bottom: 10px;
-  border: 1px solid var(--color-border);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.app-card-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: var(--color-bg-light);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  flex-shrink: 0;
-}
-
-.app-card-content {
-  flex: 1;
-  min-width: 0;
-}
-
-.app-card-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: 2px;
-}
-
-.app-card-meta {
-  font-size: 11px;
-  color: var(--color-label);
-}
-
-.app-card-check {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.app-card-check svg {
-  width: 12px;
-  height: 12px;
-  fill: white;
-}
-
-.app-card-pending {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 2px solid var(--color-border);
-  flex-shrink: 0;
 }
 
 /* ===== Section Common ===== */
@@ -572,7 +448,11 @@ img {
 .diff-icon svg {
   width: 32px;
   height: 32px;
-  fill: white;
+  stroke: white;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .diff-title {
@@ -867,9 +747,8 @@ img {
     order: -1;
   }
 
-  .phone-frame {
-    width: 240px;
-    height: 500px;
+  .hero-mockup img {
+    max-width: 340px;
     transform: rotate(0);
   }
 
@@ -1014,54 +893,7 @@ img {
       </div>
     </div>
     <div class="hero-mockup">
-      <div class="phone-frame">
-        <div class="phone-screen">
-          <div class="phone-notch"></div>
-          <div class="app-status-bar">9:41</div>
-          <div class="app-header">
-            <div class="app-greeting">안녕하세요, 신승호님</div>
-            <div class="app-title">오늘의 영양제 💊</div>
-          </div>
-          <div class="app-content">
-            <div class="app-card">
-              <div class="app-card-icon">🌿</div>
-              <div class="app-card-content">
-                <div class="app-card-title">종합비타민</div>
-                <div class="app-card-meta">아침 식후 · 1정</div>
-              </div>
-              <div class="app-card-check">
-                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              </div>
-            </div>
-            <div class="app-card">
-              <div class="app-card-icon">🐟</div>
-              <div class="app-card-content">
-                <div class="app-card-title">오메가-3</div>
-                <div class="app-card-meta">점심 식후 · 2캡슐</div>
-              </div>
-              <div class="app-card-check">
-                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              </div>
-            </div>
-            <div class="app-card">
-              <div class="app-card-icon">☀️</div>
-              <div class="app-card-content">
-                <div class="app-card-title">비타민 D</div>
-                <div class="app-card-meta">저녁 식후 · 1정</div>
-              </div>
-              <div class="app-card-pending"></div>
-            </div>
-            <div class="app-card">
-              <div class="app-card-icon">🧬</div>
-              <div class="app-card-content">
-                <div class="app-card-title">유산균</div>
-                <div class="app-card-meta">취침 전 · 1포</div>
-              </div>
-              <div class="app-card-pending"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <img src="deviceframes.png" alt="알봄 앱 화면">
     </div>
   </div>
 </section>
@@ -1122,7 +954,7 @@ img {
     <div class="diff-grid">
       <div class="diff-item">
         <div class="diff-icon">
-          <svg viewBox="0 0 24 24"><path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zM4 18v-4h-1l3-9.07c.3-.92 1.16-1.43 2.05-1.43h.95l3 9V14h-1v6c0 .55.45 1 1 1s1-.45 1-1v-7h2v7c0 .55.45 1 1 1s1-.45 1-1v-7h1v6h-2.05c-.5 1.71-2.07 3-3.95 3s-3.45-1.29-3.95-3H4zm5.5-1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5-1.5.67-1.5 1.5z"/></svg>
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
         <h3 class="diff-title">가족 단위 관리</h3>
         <p class="diff-description">
@@ -1131,7 +963,7 @@ img {
       </div>
       <div class="diff-item">
         <div class="diff-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg>
         </div>
         <h3 class="diff-title">AI 맞춤 추천</h3>
         <p class="diff-description">
@@ -1140,7 +972,7 @@ img {
       </div>
       <div class="diff-item">
         <div class="diff-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
         </div>
         <h3 class="diff-title">한국 최적화</h3>
         <p class="diff-description">
