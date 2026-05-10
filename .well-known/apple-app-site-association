@@ -1,0 +1,10 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appID": "J4G9CH273J.com.albom.app",
+        "paths": ["/invite", "/invite/*"]
+      }
+    ]
+  }
+}
