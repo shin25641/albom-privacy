@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>알봄 가족 초대</title>
+  <meta name="description" content="알봄 가족 영양제 관리 초대 링크입니다. 앱을 설치하고 함께 시작해보세요.">
+  <meta property="og:title" content="알봄 가족 초대">
+  <meta property="og:description" content="가족 영양제 관리를 함께 시작해요">
+  <meta property="og:image" content="https://albom.kr/albom_logo.png">
+  <meta property="og:url" content="https://albom.kr/invite/">
+  <link rel="apple-touch-icon" href="/app_icon.png">
+  <style>
+    :root {
+      --albom-green: #0F766E;
+      --albom-coral: #E8593C;
+      --text-primary: #1F2937;
+      --text-secondary: #6B7280;
+      --bg-page: #FFFFFF;
+      --bg-card: #F9FAFB;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                   'Apple SD Gothic Neo', 'Pretendard', sans-serif;
+      background: var(--bg-page);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .container {
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+    }
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 24px;
+      background: var(--albom-green);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      box-shadow: 0 8px 24px rgba(15, 118, 110, 0.25);
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+    .subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+    .code-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 32px;
+      border: 1px solid #E5E7EB;
+    }
+    .code-label {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    .code-value {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: 6px;
+      color: var(--albom-green);
+      font-family: 'SF Mono', Menlo, 'Courier New', monospace;
+    }
+    .code-value.empty {
+      color: #D1D5DB;
+    }
+    .button-primary,
+    .button-secondary {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 12px;
+      text-decoration: none;
+      display: block;
+      transition: opacity 0.15s;
+    }
+    .button-primary {
+      background: var(--albom-green);
+      color: #FFFFFF;
+    }
+    .button-primary:active {
+      opacity: 0.85;
+    }
+    .button-secondary {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid #E5E7EB;
+    }
+    .button-secondary:active {
+      background: #E5E7EB;
+    }
+    .button-disabled {
+      background: #E5E7EB;
+      color: #9CA3AF;
+      cursor: default;
+    }
+    .loading {
+      display: none;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-top: 16px;
+      line-height: 1.6;
+    }
+    .loading.active {
+      display: block;
+    }
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #D1D5DB;
+      border-top-color: var(--albom-green);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .notice-box {
+      display: none;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      margin-bottom: 16px;
+      text-align: left;
+      line-height: 1.6;
+    }
+    .notice-box.active {
+      display: block;
+    }
+    .notice-android {
+      background: #FEF3C7;
+      color: #78350F;
+      border: 1px solid #FDE68A;
+    }
+    .notice-kakao {
+      background: #FFFBEB;
+      color: #92400E;
+      border: 1px solid #FDE68A;
+    }
+    .notice-nocode {
+      background: #FEF2F2;
+      color: #991B1B;
+      border: 1px solid #FECACA;
+    }
+    .divider {
+      height: 1px;
+      background: #E5E7EB;
+      margin: 20px 0;
+    }
+    .footer {
+      margin-top: 24px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+    .footer a {
+      color: var(--albom-green);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- 로고 -->
+    <div class="logo">💊</div>
+
+    <!-- 제목 -->
+    <h1>알봄 가족 초대</h1>
+    <p class="subtitle">가족 영양제 관리를 함께 시작해요</p>
+
+    <!-- 초대 코드 카드 -->
+    <div class="code-card">
+      <div class="code-label">초대 코드</div>
+      <div class="code-value empty" id="codeDisplay">------</div>
+    </div>
+
+    <!-- 안내 박스 (JS로 조건 표시) -->
+    <div class="notice-box notice-nocode" id="noticeNoCode">
+      초대 코드가 없습니다. 초대한 가족에게 링크를 다시 요청해주세요.
+    </div>
+    <div class="notice-box notice-android" id="noticeAndroid">
+      Android 앱은 출시 준비 중입니다. iOS 앱을 사용하시거나 출시까지 잠시만 기다려주세요.
+    </div>
+    <div class="notice-box notice-kakao" id="noticeKakao">
+      카카오톡 내부 브라우저에서는 앱 연결이 제한될 수 있습니다. 외부 브라우저(Safari/Chrome)로 이동 중...
+    </div>
+
+    <!-- 버튼 -->
+    <a href="#" class="button-primary" id="openAppBtn">알봄 앱에서 열기</a>
+    <a href="https://apps.apple.com/kr/app/id6765701006"
+       class="button-secondary"
+       id="downloadBtn">App Store에서 다운로드</a>
+
+    <!-- 로딩 표시 -->
+    <div class="loading" id="loading">
+      <span class="spinner"></span>알봄 앱으로 이동 중...
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 푸터 -->
+    <div class="footer">
+      문의: <a href="mailto:hello@albom.kr">hello@albom.kr</a><br>
+      <a href="https://albom.kr/privacy-policy.html">개인정보처리방침</a>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ── 1. URL에서 초대 코드 추출 ─────────────────────── */
+      var params = new URLSearchParams(window.location.search);
+      var rawCode = params.get('code') || '';
+      var inviteCode = rawCode.trim().toUpperCase();
+
+      var codeEl = document.getElementById('codeDisplay');
+      if (inviteCode) {
+        codeEl.textContent = inviteCode;
+        codeEl.classList.remove('empty');
+      } else {
+        codeEl.textContent = '------';
+        document.getElementById('noticeNoCode').classList.add('active');
+      }
+
+      /* ── 2. 딥링크 URL 구성 ────────────────────────────── */
+      var deepLink = 'albom://invite?code=' + encodeURIComponent(inviteCode || '');
+      document.getElementById('openAppBtn').href = deepLink;
+
+      /* ── 3. User-Agent 분석 ────────────────────────────── */
+      var ua = navigator.userAgent;
+      var isKakaoTalk  = /KAKAOTALK/i.test(ua);
+      var isIOS        = /iPhone|iPad|iPod/i.test(ua);
+      var isAndroid    = /Android/i.test(ua);
+
+      /* ── 4. 카카오톡 인앱 브라우저 분기 ───────────────── */
+      if (isKakaoTalk) {
+        document.getElementById('noticeKakao').classList.add('active');
+        document.getElementById('openAppBtn').style.display = 'none';
+        document.getElementById('downloadBtn').style.display = 'none';
+
+        if (isIOS) {
+          /* iOS 카카오톡 → Safari 강제 */
+          window.location.href =
+            'kakaotalk://web/openExternal?url=' +
+            encodeURIComponent(window.location.href);
+        } else if (isAndroid) {
+          /* Android 카카오톡 → Chrome Intent */
+          var targetHref = window.location.href;
+          window.location.href =
+            'intent://' +
+            targetHref.replace(/^https?:\/\//i, '') +
+            '#Intent;scheme=https;package=com.android.chrome;end';
+        }
+        /* 그 외 환경(데스크톱 카카오톡 등): 안내 박스만 표시 후 종료 */
+        return;
+      }
+
+      /* ── 5. Android 미출시 안내 ────────────────────────── */
+      if (isAndroid) {
+        document.getElementById('noticeAndroid').classList.add('active');
+        document.getElementById('downloadBtn').style.display = 'none';
+        var btn = document.getElementById('openAppBtn');
+        btn.textContent = 'Android 출시 준비 중';
+        btn.classList.add('button-disabled');
+        btn.onclick = function (e) { e.preventDefault(); };
+        return;
+      }
+
+      /* ── 6. iOS / 일반 브라우저: 자동 딥링크 ──────────── */
+      if (inviteCode) {
+        /* 초대 코드가 있을 때만 자동 실행 */
+        document.getElementById('loading').classList.add('active');
+
+        setTimeout(function () {
+          window.location.href = deepLink;
+
+          /* 3초 후에도 이 탭이 살아있으면 앱 미설치 추정 → 로딩 제거 */
+          setTimeout(function () {
+            document.getElementById('loading').classList.remove('active');
+          }, 3000);
+        }, 1500);
+      }
+
+      /* ── 7. 수동 "앱에서 열기" 버튼 ───────────────────── */
+      document.getElementById('openAppBtn').addEventListener('click', function (e) {
+        e.preventDefault();
+        if (!inviteCode) return;
+        window.location.href = deepLink;
+      });
+
+    })();
+  </script>
+</body>
+</html>
